@@ -21,6 +21,8 @@ static std::vector<std::string> P8 = {"com.google.pixel.livewallpaper", "com.goo
 static std::vector<std::string> PFold = {"com.google.android.apps.subscriptions.red"};
 static std::vector<std::string> keep = {"com.google.android.apps.recorder", "com.google.android.GoogleCamera", "com.google.android.apps.motionsense.bridge", "com.google.android.gms.chimera", "com.google.android.gms.update", "com.android.camera", "com.google.android.xx", "com.google.android.googlequicksearchbox:HotwordDetectionService", "com.google.android.apps.mesagging:rcs", "com.google.android.googlequicksearchbox:trusted:com.google.android.apps.gsa.hotword.hotworddetectionservice.GsaHotwordDetectionService"};
 
+static std::vector<std::string> P10 = {"com.google", "com.android.chrome", "org.mozilla.firefox", "com.opera.browser", "com.microsoft.emmx", "com.brave.browser", "com.sec.android.app.sbrowser", "com.duckduckgo.mobile.android", "com.kiwibrowser.browser", "com.vivaldi.browser", "com.yandex.browser", "com.google.android.apps", "com.google.pixel.livewallpaper", "com.google.android.apps.subscriptions.red", "com.breel.wallpaper", "com.snapchat.android", "com.google.android.gms", "com.google.process.gapps", "com.google.process.gservices", "com.google.android.googlequicksearchbox", "com.adobe.lrmobile"};
+
 // Fingerprint
 const char P1_FP[256] = "google/marlin/marlin:10/QP1A.191005.007.A3/5972272:user/release-keys";
 const char P5_FP[256] = "google/redfin/redfin:13/TQ2A.230305.008.C1/9619669:user/release-keys";
@@ -29,6 +31,7 @@ const char P7_FP[256] = "google/cheetah/cheetah:13/TQ2A.230305.008.C1/9619669:us
 const char P2_FP[256] = "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys";
 const char PF_FP[256] = "google/felix/felix:13/TD3A.230203.070.A1/10075871:user/release-keys";
 const char P8_FP[256] = "google/husky/husky:14/UD1A.230803.041/10808477:user/release-keys";
+const char P10_FP[256] = "google/frankel/frankel:16/AP1A.250805.001/12345678:user/release-keys";
 
 bool DEBUG = true;
 char package_name[256];
@@ -77,6 +80,10 @@ public:
             break;
         case 7:
             injectBuild("Pixel 8 Pro", "husky", P8_FP);
+            break;
+        case 8:
+            injectBuild("Pixel 10 Pro", "frankel", P10_FP);
+            injecthardware("frankel");
             break;
         default:
             break;
@@ -267,6 +274,11 @@ private:
         {
             if (package.find(s) != std::string::npos)
                 return 1;
+        }
+        for (auto &s : P10)
+        {
+            if (package.find(s) != std::string::npos)
+                return 8;
         }
         for (auto &s : P8)
         {
