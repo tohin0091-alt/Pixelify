@@ -265,46 +265,36 @@ private:
         if (strcmp(process, "com.google.android.gms.unstable") == 0)
             return 2;
 
-        for (auto &s : keep)
-        {
-            if (package.find(s) != std::string::npos)
-                return 0;
-        }
+        // Google Photos gets Pixel 1 spoofing for unlimited backup
         for (auto &s : P1)
         {
             if (package.find(s) != std::string::npos)
                 return 1;
         }
+
+        // Target all Google apps (small & big), system components, and browsers for Pixel 10 Pro spoofing
+        if (package.find("com.google") != std::string::npos ||
+            package.find("google") != std::string::npos ||
+            package.find("com.android.vending") != std::string::npos ||
+            package.find("com.android.chrome") != std::string::npos ||
+            package.find("org.mozilla") != std::string::npos ||
+            package.find("com.opera") != std::string::npos ||
+            package.find("com.microsoft.emmx") != std::string::npos ||
+            package.find("com.brave") != std::string::npos ||
+            package.find("com.duckduckgo") != std::string::npos ||
+            package.find("com.kiwibrowser") != std::string::npos ||
+            package.find("com.vivaldi") != std::string::npos ||
+            package.find("com.yandex") != std::string::npos)
+        {
+            return 8;
+        }
+
         for (auto &s : P10)
         {
             if (package.find(s) != std::string::npos)
                 return 8;
         }
-        for (auto &s : P8)
-        {
-            if (package.find(s) != std::string::npos)
-                return 7;
-        }
-        for (auto &s : P5)
-        {
-            if (package.find(s) != std::string::npos)
-                return 3;
-        }
-        for (auto &s : P7)
-        {
-            if (package.find(s) != std::string::npos)
-                return 5;
-        }
-        for (auto &s : PFold)
-        {
-            if (package.find(s) != std::string::npos)
-                return 6;
-        }
-        for (auto &s : P6)
-        {
-            if (package.find(s) != std::string::npos)
-                return 4;
-        }
+
         return 0;
     }
 };
