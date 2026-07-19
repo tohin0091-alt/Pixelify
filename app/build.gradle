@@ -1,0 +1,48 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdk target_sdk
+
+    defaultConfig {
+        applicationId "com.pixelify.app"
+        minSdk min_sdk
+        targetSdk target_sdk
+        versionCode 20231105
+        versionName "3.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+}
+
+afterEvaluate {
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def apkName = "Pixelify-v3.0.apk"
+            outputFileName = apkName
+        }
+        variant.assembleProvider.get().doLast {
+            copy {
+                from "$buildDir/outputs/apk/${variant.name}"
+                into "$outDir"
+                include "*.apk"
+            }
+        }
+    }
+}
