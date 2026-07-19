@@ -30,7 +30,7 @@ jobs:
           java-version: '17'
 
       - name: Setup Android NDK
-        uses: n-m/setup-ndk@v1
+        uses: nttld/setup-ndk@v1
         with:
           ndk-version: r25c
 
