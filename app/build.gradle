@@ -33,15 +33,12 @@ dependencies {
 
 afterEvaluate {
     android.applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            def apkName = "Pixelify-v3.0.apk"
-            outputFileName = apkName
-        }
         variant.assembleProvider.get().doLast {
             copy {
                 from "$buildDir/outputs/apk/${variant.name}"
                 into "$outDir"
                 include "*.apk"
+                rename { String fileName -> "Pixelify-v3.0.apk" }
             }
         }
     }
